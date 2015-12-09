@@ -8,8 +8,9 @@
 
 #import "AnswerScrollView.h"
 #import "AnswerTableViewCell.h"
-
-
+#import "MyDataManager.h"
+#import "AnswerModel.h"
+#import "Tools.h"
 
 #define SIZE self.frame.size
 
@@ -36,6 +37,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        _currentPage = 0; // 展示第一页面 就是第一题
         
         _dataArray = [NSArray arrayWithArray:dataArray];
         
@@ -102,7 +105,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return 44.0f;
+    return 60.0f;
     
 }
 
@@ -117,15 +120,69 @@
         cell.numberLabel.layer.cornerRadius = 10;
     }
     
-    cell.numberLabel.text = [NSString stringWithFormat:@"%c",'A'+indexPath.row];
+    AnswerModel * answerModel;
     
+    if (tableView == leftTableView && _currentPage == 0) {
+        answerModel = _dataArray[_currentPage];
+    }
+    if (tableView == leftTableView && _currentPage > 0) {
+        answerModel = _dataArray[_currentPage-1];
+    }
+    if (tableView == mainTableView && _currentPage == 0) {
+        answerModel = _dataArray[_currentPage+1];
+    }
+    if (tableView == mainTableView && _currentPage > 0) {
+        answerModel = _dataArray[_currentPage];
+    }
+    if (tableView == rightTableView && _currentPage == 0) {
+        answerModel = _dataArray[_currentPage+2];
+    }
+    if (tableView == rightTableView && _currentPage >0) {
+        answerModel = _dataArray[_currentPage+1];
+    }
+    
+    cell.numberLabel.text = [NSString stringWithFormat:@"%c",'A'+indexPath.row];
+    cell.answerLabel.text = [Tools getAnswerWithString:answerModel.mquestion][indexPath.row+1];
+    //cell.answerLabel.font = [UIFont systemFontOfSize:10.0f*SCREEN_SCALE];
+    //cell.answerLabel.numberOfLines = 0;
     return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView  * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE.width, 100.0f)];
-    headView.backgroundColor = [UIColor redColor];
+    headView.backgroundColor = [UIColor lightGrayColor];
+    
+    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, SIZE.width-20, 100.0f-20)];
+    titleLabel.font = [UIFont systemFontOfSize:13];
+    titleLabel.numberOfLines = 0;
+    [headView addSubview:titleLabel];
+    
+    AnswerModel * answerModel;
+    
+    if (tableView == leftTableView && _currentPage == 0) {
+        answerModel = _dataArray[_currentPage];
+    }
+    if (tableView == leftTableView && _currentPage > 0) {
+        answerModel = _dataArray[_currentPage-1];
+    }
+    if (tableView == mainTableView && _currentPage == 0) {
+        answerModel = _dataArray[_currentPage+1];
+    }
+    if (tableView == mainTableView && _currentPage > 0) {
+        answerModel = _dataArray[_currentPage];
+    }
+    if (tableView == rightTableView && _currentPage == 0) {
+        answerModel = _dataArray[_currentPage+2];
+    }
+    if (tableView == rightTableView && _currentPage >0) {
+        answerModel = _dataArray[_currentPage+1];
+    }
+    
+    titleLabel.text = [[Tools getAnswerWithString:answerModel.mquestion]firstObject];
+    
+    
+    
     return headView;
 
 }
@@ -154,7 +211,17 @@
         
     }
     
+    [self reloadData];
     
+}
+
+#pragma mark -重新加载表数据
+- (void)reloadData{
+    
+    [leftTableView reloadData];
+    [mainTableView reloadData];
+    [rightTableView reloadData];
+
 }
 
 @end

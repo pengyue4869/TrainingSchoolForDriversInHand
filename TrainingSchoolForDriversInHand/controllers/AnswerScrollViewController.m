@@ -8,7 +8,7 @@
 
 #import "AnswerScrollViewController.h"
 #import "AnswerScrollView.h"
-
+#import "MyDataManager.h"
 
 @interface AnswerScrollViewController ()
 
@@ -22,7 +22,8 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    _dataArray = @[@"1",@"2",@"3",@"4",@"5"];
+    //得到所有选择题的数据
+    _dataArray = [MyDataManager readDataWithType:leaflevel];
     
     AnswerScrollView * asv = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) andDataArray:_dataArray];
     
