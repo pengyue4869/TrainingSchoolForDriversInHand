@@ -9,14 +9,14 @@
 #import "TestSelectViewController.h"
 #import "TestSelectTableViewCell.h"
 #import "TestSelectModel.h"
-#import "AnswerScrollView.h"
+#import "AnswerScrollViewController.h"
 
 
 @interface TestSelectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     
     UITableView * _tabelView;
-    AnswerScrollView * _answerSV;
+    
     
 }
 @end
@@ -37,9 +37,9 @@
     
     [self createTableView];
     
-    _answerSV = [[AnswerScrollView alloc]initWithFrame:self.view.frame andDataArray:nil];
-    [self.view addSubview:_answerSV];
-    _answerSV.alpha = 0;
+   // _answerSV = [[AnswerScrollView alloc]initWithFrame:self.view.frame andDataArray:nil];
+   // [self.view addSubview:_answerSV];
+   // _answerSV.alpha = 0;
     
 }
 
@@ -93,7 +93,7 @@
     }
     
     TestSelectModel * model = [_dataArray objectAtIndex:indexPath.row];
-    cell.numberLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row+1];
+    cell.numberLabel.text = [NSString stringWithFormat:@"%d",indexPath.row+1];
     cell.titleLabel.text = model.pname;
     
     return cell;
@@ -105,9 +105,7 @@
     switch (indexPath.row) {
         case 0:
         {
-            [UIView animateWithDuration:0.3 animations:^{
-                _answerSV.alpha = 1;
-            }];
+            [self.navigationController pushViewController:[[AnswerScrollViewController alloc]init] animated:YES];
         }
             
             break;
