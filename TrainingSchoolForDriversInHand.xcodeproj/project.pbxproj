@@ -13,6 +13,7 @@
 		BC3F86D31C17C15E00F847B0 /* AnswerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC3F86D11C17C15E00F847B0 /* AnswerTableViewCell.xib */; };
 		BC3F86D61C17CFCD00F847B0 /* AnswerScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3F86D51C17CFCD00F847B0 /* AnswerScrollViewController.m */; };
 		BC3F86D91C17FC8A00F847B0 /* AnswerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3F86D81C17FC8A00F847B0 /* AnswerModel.m */; };
+		BC3F86DC1C1810D200F847B0 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3F86DB1C1810D200F847B0 /* Tools.m */; };
 		BC5590531C16BFAB00574A29 /* TestSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5590521C16BFAB00574A29 /* TestSelectViewController.m */; };
 		BC5590571C16C38600574A29 /* TestSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5590551C16C38600574A29 /* TestSelectTableViewCell.m */; };
 		BC5590581C16C38600574A29 /* TestSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC5590561C16C38600574A29 /* TestSelectTableViewCell.xib */; };
@@ -252,6 +253,8 @@
 		BC3F86D51C17CFCD00F847B0 /* AnswerScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerScrollViewController.m; sourceTree = "<group>"; };
 		BC3F86D71C17FC8A00F847B0 /* AnswerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerModel.h; sourceTree = "<group>"; };
 		BC3F86D81C17FC8A00F847B0 /* AnswerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerModel.m; sourceTree = "<group>"; };
+		BC3F86DA1C1810D200F847B0 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		BC3F86DB1C1810D200F847B0 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		BC5590511C16BFAB00574A29 /* TestSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSelectViewController.h; sourceTree = "<group>"; };
 		BC5590521C16BFAB00574A29 /* TestSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSelectViewController.m; sourceTree = "<group>"; };
 		BC5590541C16C38600574A29 /* TestSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -598,6 +601,8 @@
 				BCE6BAB51C15A71400AA4900 /* controllers */,
 				BC7631B11C15269F007857D7 /* AppDelegate.h */,
 				BC7631B21C15269F007857D7 /* AppDelegate.m */,
+				BC3F86DA1C1810D200F847B0 /* Tools.h */,
+				BC3F86DB1C1810D200F847B0 /* Tools.m */,
 				BC7631B41C15269F007857D7 /* ViewController.h */,
 				BC7631B51C15269F007857D7 /* ViewController.m */,
 				BC7631B71C15269F007857D7 /* Main.storyboard */,
@@ -1203,6 +1208,7 @@
 				BC5590531C16BFAB00574A29 /* TestSelectViewController.m in Sources */,
 				1016C3CC1C172CEF00A9906C /* AnswerScrollView.m in Sources */,
 				BC55906D1C17000C00574A29 /* FMDatabaseQueue.m in Sources */,
+				BC3F86DC1C1810D200F847B0 /* Tools.m in Sources */,
 				BC55906E1C17000C00574A29 /* FMResultSet.m in Sources */,
 				BC3F86D91C17FC8A00F847B0 /* AnswerModel.m in Sources */,
 				BC55906C1C17000C00574A29 /* FMDatabasePool.m in Sources */,
