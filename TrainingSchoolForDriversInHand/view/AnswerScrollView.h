@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AnswerScrollView : UIView
+
 - (instancetype)initWithFrame:(CGRect)frame andDataArray:(NSArray *)dataArray;
+
+@property (nonatomic,assign,readonly) int currentPage;
+
 @end

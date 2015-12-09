@@ -7,6 +7,9 @@
 //
 
 #import "AnswerScrollView.h"
+#import "AnswerTableViewCell.h"
+
+
 
 #define SIZE self.frame.size
 
@@ -21,6 +24,9 @@
 
 
 }
+
+@property (nonatomic,assign,readwrite) int currentPage;
+
 @end
 
 
@@ -35,6 +41,15 @@
         
         _scrollView = [[UIScrollView alloc]initWithFrame:frame];
         _scrollView.delegate = self;
+        _scrollView.pagingEnabled = YES;
+        _scrollView.bounces = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        
+        if (_dataArray.count>1) {
+            _scrollView.contentSize = CGSizeMake(SIZE.width*2, SIZE.height);
+        }
+        
         
         leftTableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStyleGrouped];
         leftTableView.delegate = self;
@@ -81,19 +96,30 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-    return 9;
+    return 4;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return 70.0f;
+    return 44.0f;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return nil;
+    static NSString * cellID = @"AnswerTableViewCell";
+    AnswerTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"AnswerTableViewCell" owner:self options:nil]lastObject];
+        cell.numberLabel.layer.masksToBounds = YES;
+        cell.numberLabel.layer.cornerRadius = 10;
+    }
+    
+    cell.numberLabel.text = [NSString stringWithFormat:@"%c",'A'+indexPath.row];
+    
+    return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -104,11 +130,31 @@
 
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 100.0f;
+
+}
+
 #pragma mark - 实现scrollView的代理方法
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 
-
+    CGPoint currentSizeOff = scrollView.contentOffset;
+    
+    self.currentPage = (int)currentSizeOff.x/SIZE.width;
+    
+    if (self.currentPage < _dataArray.count-1) {
+        
+        _scrollView.contentSize = CGSizeMake(currentSizeOff.x+SIZE.width*2, SIZE.height);
+        
+        leftTableView.frame = CGRectMake(currentSizeOff.x-SIZE.width, 0, SIZE.width, SIZE.height);
+        mainTableView.frame = CGRectMake(currentSizeOff.x, 0, SIZE.width, SIZE.height);
+        rightTableView.frame = CGRectMake(currentSizeOff.x+SIZE.width, 0, SIZE.width, SIZE.height);
+        
+    }
+    
+    
 }
 
 @end

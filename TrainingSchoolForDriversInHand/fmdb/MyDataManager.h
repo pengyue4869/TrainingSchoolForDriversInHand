@@ -11,7 +11,8 @@
 
 typedef enum{
     
-    chapter//章节练习数据
+    chapter,  //章节练习数据
+    leaflevel  //练习题
     
 }DataType;
 
