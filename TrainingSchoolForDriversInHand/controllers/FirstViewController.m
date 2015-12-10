@@ -10,6 +10,7 @@
 #import "FirstTableViewCell.h"
 #import "TestSelectViewController.h"
 #import "MyDataManager.h"
+#import "Tools.h"
 
 @interface FirstViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -146,6 +147,8 @@
             
             tvc.navigationItem.leftBarButtonItem = [self createBackButton];
 
+            [self.navigationController.view.layer addAnimation:[Tools createAnimationWithIndexOfAnimation:1 andDirection:@"fromRight" andTime:1.0f] forKey:nil];
+            
             [self.navigationController pushViewController:tvc animated:YES];
         
         }
