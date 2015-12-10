@@ -27,4 +27,36 @@
 
 }
 
++ (CATransition *)createAnimationWithIndexOfAnimation:(NSInteger)index andDirection:(NSString *)direction andTime:(float)time{
+    
+    /*动画效果详解：
+     #import <QuartzCore/QuartzCore.h>(一定要加入此库)
+    1.模块翻转；2.深入深处 3.淡入淡出 4.默认 5.翻页 6.反翻页 7.吸效果 8.水滴效果 9.旋转
+     */
+    
+    NSArray * array = @[@"cube",@"moveIn",@"reveal",@"fade",@"pageCurl",@"pageUnCurl",@"suckEffect",@"rippleEffect",@"oglFlip"];
+    CATransition * tranaition = [CATransition animation];
+    if (index<=9&&index>=1) {
+        tranaition.type = [array objectAtIndex:index-1];
+    }else{
+        tranaition.type = [array lastObject];
+    }
+    tranaition.subtype = direction;
+    tranaition.duration = time;
+    
+    return tranaition;
+    
+}
+
++ (CGSize)getSizeWithString:(NSString *)str withFont:(UIFont *)font andSize:(CGSize)size{
+
+    CGSize newSize;
+    
+    CGRect newRect = [str boundingRectWithSize:CGSizeMake(size.width, 9999999999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
+    newSize = newRect.size;
+    NSLog(@"高：%lf",newSize.height);
+    return newSize;
+
+}
+
 @end

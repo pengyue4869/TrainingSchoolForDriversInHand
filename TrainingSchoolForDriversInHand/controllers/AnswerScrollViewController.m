@@ -9,6 +9,7 @@
 #import "AnswerScrollViewController.h"
 #import "AnswerScrollView.h"
 #import "MyDataManager.h"
+#import "AnswerModel.h"
 
 @interface AnswerScrollViewController ()
 
@@ -23,9 +24,20 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     //得到所有选择题的数据
-    _dataArray = [MyDataManager readDataWithType:leaflevel];
+    NSArray * _dataArray = [NSArray arrayWithArray:[MyDataManager readDataWithType:leaflevel]];
     
-    AnswerScrollView * asv = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) andDataArray:_dataArray];
+    NSMutableArray * arr = [[NSMutableArray alloc]init];
+    
+    for (int i=0; i<_dataArray.count; i++) {
+        AnswerModel * model = _dataArray[i];
+        if ([model.pid intValue]==self.number+1) {
+            [arr addObject:model];
+        }
+        
+    }
+    
+    
+    AnswerScrollView * asv = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) andDataArray:arr];
     
     [self.view addSubview:asv];
     

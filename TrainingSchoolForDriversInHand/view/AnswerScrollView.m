@@ -120,43 +120,156 @@
         cell.numberLabel.layer.cornerRadius = 10;
     }
     
-    AnswerModel * answerModel;
+    AnswerModel * answerModel = [self getModelWithTableView:tableView];
     
-    if (tableView == leftTableView && _currentPage == 0) {
-        answerModel = _dataArray[_currentPage];
-    }
-    if (tableView == leftTableView && _currentPage > 0) {
-        answerModel = _dataArray[_currentPage-1];
-    }
-    if (tableView == mainTableView && _currentPage == 0) {
-        answerModel = _dataArray[_currentPage+1];
-    }
-    if (tableView == mainTableView && _currentPage > 0) {
-        answerModel = _dataArray[_currentPage];
-    }
-    if (tableView == rightTableView && _currentPage == 0) {
-        answerModel = _dataArray[_currentPage+2];
-    }
-    if (tableView == rightTableView && _currentPage >0) {
-        answerModel = _dataArray[_currentPage+1];
+    if ([answerModel.mtype intValue]==1) {
+        cell.numberLabel.text = [NSString stringWithFormat:@"%c",(char)('A'+indexPath.row)];
+        cell.answerLabel.text = [Tools getAnswerWithString:answerModel.mquestion][indexPath.row+1];
     }
     
-    cell.numberLabel.text = [NSString stringWithFormat:@"%c",'A'+indexPath.row];
-    cell.answerLabel.text = [Tools getAnswerWithString:answerModel.mquestion][indexPath.row+1];
-    //cell.answerLabel.font = [UIFont systemFontOfSize:10.0f*SCREEN_SCALE];
-    //cell.answerLabel.numberOfLines = 0;
+
     return cell;
 }
 
+
+#pragma mark -头视图的封装
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    UIView  * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE.width, 100.0f)];
+    AnswerModel * answerModel = [self getModelWithTableView:tableView];
+    
+    CGFloat height;
+    NSString * titleStr;
+    
+    if ([answerModel.mtype intValue] == 1) {
+        
+        titleStr = [[Tools getAnswerWithString:answerModel.mquestion]firstObject];
+        CGSize size = [Tools getSizeWithString:titleStr withFont:[UIFont systemFontOfSize:16*SCREEN_SCALE] andSize:CGSizeMake(tableView.frame.size.width-20, 400)];
+        
+        height = size.height+20;
+        
+    }else{
+        
+        titleStr = answerModel.mquestion;
+        CGSize size = [Tools getSizeWithString:titleStr withFont:[UIFont systemFontOfSize:16*SCREEN_SCALE] andSize:CGSizeMake(tableView.frame.size.width-20, 400)];
+        
+        height = size.height+20;
+        
+    }
+    
+    UIView  * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE.width, height)];
     headView.backgroundColor = [UIColor lightGrayColor];
     
-    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, SIZE.width-20, 100.0f-20)];
-    titleLabel.font = [UIFont systemFontOfSize:13];
+    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 10, SIZE.width-10, height-20)];
+    //titleLabel.backgroundColor = [UIColor yellowColor];
+    titleLabel.font = [UIFont systemFontOfSize:16 * SCREEN_SCALE];
     titleLabel.numberOfLines = 0;
     [headView addSubview:titleLabel];
+    titleLabel.text = [NSString stringWithFormat:@"%d.%@",[self getQuestionNumber:tableView andCurrentPage:_currentPage],titleStr];
+    return headView;
+
+    
+}
+
+- (int)getQuestionNumber:(UITableView *)tableView andCurrentPage:(int)page{
+    
+    int pageNum = 0;
+    
+    if (tableView == leftTableView && _currentPage == 0) {
+        pageNum = 1;
+    }
+    if (tableView == leftTableView && _currentPage > 0) {
+        pageNum = page;
+    }
+    if (tableView == mainTableView && _currentPage == 0) {
+        pageNum = 2;
+    }
+    if (tableView == mainTableView && _currentPage > 0 && _currentPage < _dataArray.count-1) {
+        pageNum = page + 1;
+    }
+    if (tableView == mainTableView && _currentPage == _dataArray.count-1) {
+        pageNum = page;
+    }
+    if (tableView == rightTableView && _currentPage == _dataArray.count-1) {
+        pageNum = page + 1;
+    }
+    if (tableView == rightTableView && _currentPage < _dataArray.count-1) {
+        pageNum = page + 2;
+    }
+
+    return pageNum;
+}
+
+//题目自适应高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    AnswerModel * answerModel = [self getModelWithTableView:tableView];
+    
+    CGFloat height;
+    
+    if ([answerModel.mtype intValue] == 1) {
+        
+        NSString * titleStr = [[Tools getAnswerWithString:answerModel.mquestion]firstObject];
+        CGSize size = [Tools getSizeWithString:titleStr withFont:[UIFont systemFontOfSize:16*SCREEN_SCALE] andSize:CGSizeMake(tableView.frame.size.width-20, 400)];
+        
+        height = size.height+20;
+        
+    }else{
+    
+        NSString * titleStr = answerModel.mquestion;
+        CGSize size = [Tools getSizeWithString:titleStr withFont:[UIFont systemFontOfSize:16*SCREEN_SCALE] andSize:CGSizeMake(tableView.frame.size.width-20, 400)];
+        
+        height = size.height+20;
+    
+    }
+    
+    if (height <= 80.0f) {
+        
+        return 80.0f;
+        
+    }else{
+    
+        return height;
+    }
+
+}
+
+#pragma mark 脚视图封装
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+
+    AnswerModel * answerModel = [self getModelWithTableView:tableView];
+    
+    CGFloat height;
+    
+    NSString * titleStr = answerModel.manswer;
+    CGSize size = [Tools getSizeWithString:titleStr withFont:[UIFont systemFontOfSize:12*SCREEN_SCALE] andSize:CGSizeMake(tableView.frame.size.width-20, 400)];
+    
+    height = size.height+20;
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE.width, height)];
+    view.backgroundColor = [UIColor yellowColor];
+    
+    return view;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+
+    AnswerModel * answerModel = [self getModelWithTableView:tableView];
+    
+    CGFloat height;
+        
+    NSString * titleStr = answerModel.manswer;
+    CGSize size = [Tools getSizeWithString:titleStr withFont:[UIFont systemFontOfSize:12*SCREEN_SCALE] andSize:CGSizeMake(tableView.frame.size.width-20, 400)];
+    
+    height = size.height+20;
+        
+    
+    return height;
+}
+
+
+
+#pragma mark 处理model和currentPage的逻辑
+- (AnswerModel *)getModelWithTableView:(UITableView *)tableView{
     
     AnswerModel * answerModel;
     
@@ -169,29 +282,21 @@
     if (tableView == mainTableView && _currentPage == 0) {
         answerModel = _dataArray[_currentPage+1];
     }
-    if (tableView == mainTableView && _currentPage > 0) {
+    if (tableView == mainTableView && _currentPage > 0 && _currentPage < _dataArray.count-1) {
         answerModel = _dataArray[_currentPage];
     }
-    if (tableView == rightTableView && _currentPage == 0) {
-        answerModel = _dataArray[_currentPage+2];
+    if (tableView == mainTableView && _currentPage == _dataArray.count-1) {
+        answerModel = _dataArray[_currentPage-1];
     }
-    if (tableView == rightTableView && _currentPage >0) {
+    if (tableView == rightTableView && _currentPage == _dataArray.count-1) {
+        answerModel = _dataArray[_currentPage];
+    }
+    if (tableView == rightTableView && _currentPage < _dataArray.count-1) {
         answerModel = _dataArray[_currentPage+1];
     }
-    
-    titleLabel.text = [[Tools getAnswerWithString:answerModel.mquestion]firstObject];
-    
-    
-    
-    return headView;
-
+    return answerModel;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return 100.0f;
-
-}
 
 #pragma mark - 实现scrollView的代理方法
 
@@ -201,7 +306,7 @@
     
     self.currentPage = (int)currentSizeOff.x/SIZE.width;
     
-    if (self.currentPage < _dataArray.count-1) {
+    if (self.currentPage < _dataArray.count-1 && self.currentPage > 0) {
         
         _scrollView.contentSize = CGSizeMake(currentSizeOff.x+SIZE.width*2, SIZE.height);
         

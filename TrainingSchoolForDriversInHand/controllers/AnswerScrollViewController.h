@@ -10,6 +10,8 @@
 
 @interface AnswerScrollViewController : UIViewController
 
-@property (nonatomic,strong) NSArray * dataArray;
+//@property (nonatomic,strong) NSArray * dataArray;
+
+@property (nonatomic,assign) int number;
 
 @end

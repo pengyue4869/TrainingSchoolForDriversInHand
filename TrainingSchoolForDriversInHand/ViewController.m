@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SelectView.h"
 #import "FirstViewController.h"
+#import "Tools.h"
 
 @interface ViewController ()
 {
@@ -51,6 +52,8 @@
             FirstViewController * first = [[FirstViewController alloc]init];
             first.title = @"科目一:理论考试";
             first.navigationItem.leftBarButtonItem = [self createBackButton];
+            //加入翻转动画
+            [self.navigationController.view.layer addAnimation:[Tools createAnimationWithIndexOfAnimation:8 andDirection:@"fromRight" andTime:2.0f] forKey:nil];
             [self.navigationController pushViewController:first animated:YES];
             
         }

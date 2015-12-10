@@ -19,6 +19,6 @@
 
 #define IPHONE6P 
 
-#define SCREEN_SCALE 667.0f/SCREEN_HEIGHT
+#define SCREEN_SCALE SCREEN_HEIGHT/667.0f
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height

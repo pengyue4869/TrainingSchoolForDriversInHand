@@ -10,7 +10,7 @@
 #import "TestSelectTableViewCell.h"
 #import "TestSelectModel.h"
 #import "AnswerScrollViewController.h"
-
+#import "Tools.h"
 
 @interface TestSelectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -93,7 +93,7 @@
     }
     
     TestSelectModel * model = [_dataArray objectAtIndex:indexPath.row];
-    cell.numberLabel.text = [NSString stringWithFormat:@"%d",indexPath.row+1];
+    cell.numberLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row+1];
     cell.titleLabel.text = model.pname;
     
     return cell;
@@ -102,18 +102,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    switch (indexPath.row) {
-        case 0:
-        {
-            [self.navigationController pushViewController:[[AnswerScrollViewController alloc]init] animated:YES];
-        }
-            
-            break;
-            
-        default:
-            break;
-    }
-
+    AnswerScrollViewController * asv = [[AnswerScrollViewController alloc]init];
+    asv.number = (int)indexPath.row;
+    [self.navigationController.view.layer addAnimation:[Tools createAnimationWithIndexOfAnimation:9 andDirection:@"fromRight" andTime:1.0f] forKey:nil];
+    [self.navigationController pushViewController:asv animated:YES];
+    
 }
 
 
