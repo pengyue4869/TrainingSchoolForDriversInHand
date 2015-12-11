@@ -54,7 +54,7 @@
     
     CGRect newRect = [str boundingRectWithSize:CGSizeMake(size.width, 9999999999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
     newSize = newRect.size;
-    NSLog(@"高：%lf",newSize.height);
+    //NSLog(@"高：%lf",newSize.height);
     return newSize;
 
 }

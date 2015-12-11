@@ -25,7 +25,7 @@
     }
     
     if ([dataBase open]) {
-        NSLog(@"打开数据库成功");
+       // NSLog(@"打开数据库成功");
     }else{
         NSLog(@"打开数据库失败");
         return dataArray;

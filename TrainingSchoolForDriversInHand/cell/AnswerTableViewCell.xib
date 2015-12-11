@@ -23,12 +23,12 @@
                             <constraint firstAttribute="width" secondItem="5dy-Lo-NTD" secondAttribute="height" multiplier="1:1" id="Fcp-hs-BDb"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="答题内容" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUE-Ty-hrt">
-                        <rect key="frame" x="40" y="15" width="270" height="14"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <rect key="frame" x="40" y="14" width="270" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KGu-uE-5ij">
@@ -49,6 +49,7 @@
                     <constraint firstItem="fUE-Ty-hrt" firstAttribute="leading" secondItem="5dy-Lo-NTD" secondAttribute="trailing" constant="10" id="wMI-a2-98c"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="answerLabel" destination="fUE-Ty-hrt" id="5ZU-MM-YfJ"/>
                 <outlet property="numberImage" destination="KGu-uE-5ij" id="lN8-wN-nNZ"/>

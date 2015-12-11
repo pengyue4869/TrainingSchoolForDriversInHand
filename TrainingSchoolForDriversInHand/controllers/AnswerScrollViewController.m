@@ -36,7 +36,6 @@
         
     }
     
-    
     AnswerScrollView * asv = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) andDataArray:arr];
     
     [self.view addSubview:asv];
