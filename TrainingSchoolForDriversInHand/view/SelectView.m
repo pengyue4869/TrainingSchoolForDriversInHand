@@ -15,7 +15,7 @@
 
 @interface SelectView ()
 {
-    UIButton * _button;
+    UIButton * _button;//反对票买好票付款后配套费
 }
 @end
 
